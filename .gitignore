@@ -1,0 +1,6 @@
+/target
+/dist
+/pkg
+/packaging/project-ember-*.tar.gz
+/packaging/src
+*.log

@@ -1,0 +1,17 @@
+[Unit]
+Description=Project Ember display warmth and dimming
+Documentation=https://github.com/mariusschober/ProjectEmberLinux
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/emberd
+Restart=on-failure
+RestartSec=3
+# State lives in the user's XDG directories; no root privileges are used.
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=graphical-session.target

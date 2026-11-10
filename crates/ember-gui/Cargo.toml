@@ -1,0 +1,24 @@
+[package]
+name = "ember-gui"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+description = "Project Ember GTK4 control panel for Omarchy"
+license.workspace = true
+
+[[bin]]
+name = "ember"
+path = "src/main.rs"
+
+[dependencies]
+ember-core.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+zbus.workspace = true
+tokio.workspace = true
+log.workspace = true
+env_logger.workspace = true
+gtk4 = { version = "0.11", features = ["v4_10"] }
+libloading = "0.8"
+chrono.workspace = true
+clap.workspace = true

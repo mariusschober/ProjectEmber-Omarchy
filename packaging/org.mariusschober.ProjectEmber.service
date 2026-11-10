@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=org.mariusschober.ProjectEmber
+Exec=/usr/bin/emberd
+SystemdService=project-ember.service

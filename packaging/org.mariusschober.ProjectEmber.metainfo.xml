@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>org.mariusschober.ProjectEmber</id>
+  <name>Project Ember</name>
+  <summary>Reversible warmth and software dimming for every display</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <description>
+    <p>Project Ember reduces short-wavelength display output and provides software dimming on Hyprland, Sway and X11. Every display is identified independently, its original state is journaled before the first write, and restores are verified.</p>
+    <p>Sun schedule calculates sunrise and sunset on-device. Ember performs no network requests and requires no accounts, telemetry or tracking.</p>
+  </description>
+  <launchable type="desktop-id">project-ember.desktop</launchable>
+  <url type="homepage">https://github.com/mariusschober/ProjectEmberLinux</url>
+  <developer_name>Marius Schober</developer_name>
+  <releases>
+    <release version="0.4.0" date="2026-11-10"/>
+  </releases>
+  <content_rating type="oars-1.1"/>
+</component>

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Project Ember
+GenericName=Display warmth and dimming
+Comment=Reversible warmth and software dimming for every display
+Exec=ember
+Icon=project-ember
+Terminal=false
+Categories=Utility;
+Keywords=night light;warmth;dimming;blue light;circadian;display;
+StartupNotify=false
+StartupWMClass=org.mariusschober.ProjectEmber.Panel

@@ -1,0 +1,24 @@
+[package]
+name = "ember-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+description = "Command-line control for Project Ember"
+license.workspace = true
+
+[[bin]]
+name = "emberctl"
+path = "src/main.rs"
+
+[dependencies]
+ember-core.workspace = true
+ember-platform.workspace = true
+ember-daemon.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tokio.workspace = true
+zbus.workspace = true
+anyhow.workspace = true
+libc.workspace = true
+clap.workspace = true
+chrono.workspace = true

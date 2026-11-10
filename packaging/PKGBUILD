@@ -1,0 +1,68 @@
+# Maintainer: Marius Schober <https://mariusschober.com/>
+# Builds the signed release tag from GitHub. Requires base-devel and Rust.
+pkgname=project-ember
+pkgver=0.4.0
+pkgrel=1
+pkgdesc="Reversible warmth and software dimming for every display (Omarchy/Linux)"
+arch=('x86_64' 'aarch64')
+url="https://github.com/mariusschober/ProjectEmberLinux"
+license=('MIT')
+depends=('gtk4' 'wayland' 'libxkbcommon' 'hicolor-icon-theme' 'dbus')
+makedepends=('cargo' 'rust' 'pkgconf' 'git')
+optdepends=(
+  'brightnessctl: fallback hardware backlight control'
+  'geoclue: automatic location for the Sun schedule'
+  'gtk4-layer-shell: anchored panel under the Omarchy bar'
+  'xdg-utils: opening the author link from the panel'
+)
+provides=('emberd' 'emberctl' 'ember')
+conflicts=('project-ember-bin' 'project-ember-git')
+options=('!strip')
+source=("$pkgname::git+https://github.com/mariusschober/ProjectEmberLinux.git#tag=v$pkgver")
+sha256sums=('SKIP')
+
+build() {
+  cd "$srcdir/$pkgname"
+  export CARGO_TARGET_DIR="$srcdir/target"
+  cargo build --release --locked --workspace
+}
+
+check() {
+  cd "$srcdir/$pkgname"
+  export CARGO_TARGET_DIR="$srcdir/target"
+  cargo test --release --locked --workspace -- --test-threads=1
+}
+
+package() {
+  cd "$srcdir/$pkgname"
+  install -Dm755 "$srcdir/target/release/emberd" "$pkgdir/usr/bin/emberd"
+  install -Dm755 "$srcdir/target/release/emberctl" "$pkgdir/usr/bin/emberctl"
+  install -Dm755 "$srcdir/target/release/ember" "$pkgdir/usr/bin/ember"
+
+  install -Dm644 packaging/project-ember.desktop \
+    "$pkgdir/usr/share/applications/project-ember.desktop"
+  install -Dm644 packaging/project-ember.service \
+    "$pkgdir/usr/lib/systemd/user/project-ember.service"
+  install -Dm644 packaging/org.mariusschober.ProjectEmber.service \
+    "$pkgdir/usr/share/dbus-1/services/org.mariusschober.ProjectEmber.service"
+  install -Dm644 packaging/org.mariusschober.ProjectEmber.metainfo.xml \
+    "$pkgdir/usr/share/metainfo/org.mariusschober.ProjectEmber.metainfo.xml"
+  install -Dm644 packaging/icons/project-ember.svg \
+    "$pkgdir/usr/share/icons/hicolor/scalable/apps/project-ember.svg"
+  install -Dm644 packaging/icons/project-ember-symbolic.svg \
+    "$pkgdir/usr/share/icons/hicolor/scalable/apps/project-ember-symbolic.svg"
+
+  install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
+  install -Dm644 docs/SYSTEM_DESIGN.md "$pkgdir/usr/share/doc/$pkgname/SYSTEM_DESIGN.md"
+  install -Dm644 docs/SAFETY.md "$pkgdir/usr/share/doc/$pkgname/SAFETY.md"
+  install -Dm644 docs/OMARCHY.md "$pkgdir/usr/share/doc/$pkgname/OMARCHY.md"
+  install -Dm644 docs/PORTING.md "$pkgdir/usr/share/doc/$pkgname/PORTING.md"
+  install -Dm644 docs/LIMITATIONS.md "$pkgdir/usr/share/doc/$pkgname/LIMITATIONS.md"
+  install -Dm644 docs/TEST_PLAN.md "$pkgdir/usr/share/doc/$pkgname/TEST_PLAN.md"
+  install -Dm644 docs/RED_TEAM_REPORT.md "$pkgdir/usr/share/doc/$pkgname/RED_TEAM_REPORT.md"
+  install -Dm644 packaging/omarchy/omarchy-menu.jsonc \
+    "$pkgdir/usr/share/doc/$pkgname/omarchy-menu.jsonc"
+  install -Dm644 packaging/omarchy/hypr-bindings.lua \
+    "$pkgdir/usr/share/doc/$pkgname/hypr-bindings.lua"
+}

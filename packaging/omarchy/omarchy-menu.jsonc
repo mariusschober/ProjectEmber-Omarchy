@@ -1,0 +1,34 @@
+{
+  // Project Ember entries for the Omarchy/Quickshell menu.
+  // Merge into ~/.config/omarchy/extensions/omarchy-menu.jsonc (installer does this only when absent)
+  "ember": {
+    "icon": "󰈸",
+    "label": "Ember",
+    "description": "Circadian display warmth and dimming"
+  },
+  "ember.controls": {
+    "icon": "",
+    "label": "Ember Controls",
+    "action": "ember --show"
+  },
+  "ember.toggle": {
+    "icon": "",
+    "label": "Toggle Ember",
+    "action": "emberctl toggle"
+  },
+  "ember.diagnostics": {
+    "icon": "",
+    "label": "Ember Diagnostics",
+    "action": "ember --diagnostics"
+  },
+  "ember.restore": {
+    "icon": "",
+    "label": "Restore Displays",
+    "action": "emberctl restore"
+  },
+  "ember.schedule": {
+    "icon": "",
+    "label": "Toggle Sun Schedule",
+    "action": "sh -c 'emberctl status --json | jq -r .settings.sunScheduleEnabled | grep -q true && emberctl schedule off || emberctl schedule on'"
+  }
+}

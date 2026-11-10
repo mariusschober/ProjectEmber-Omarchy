@@ -1,0 +1,31 @@
+pkgbase = project-ember
+	pkgdesc = Reversible warmth and software dimming for every display (Omarchy/Linux)
+	pkgver = 0.4.0
+	pkgrel = 1
+	url = https://github.com/mariusschober/ProjectEmberLinux
+	arch = x86_64
+	arch = aarch64
+	license = MIT
+	makedepends = cargo
+	makedepends = rust
+	makedepends = pkgconf
+	makedepends = git
+	depends = gtk4
+	depends = wayland
+	depends = libxkbcommon
+	depends = hicolor-icon-theme
+	depends = dbus
+	optdepends = brightnessctl: fallback hardware backlight control
+	optdepends = geoclue: automatic location for the Sun schedule
+	optdepends = gtk4-layer-shell: anchored panel under the Omarchy bar
+	optdepends = xdg-utils: opening the author link from the panel
+	provides = emberd
+	provides = emberctl
+	provides = ember
+	conflicts = project-ember-bin
+	conflicts = project-ember-git
+	options = !strip
+	source = project-ember::git+https://github.com/mariusschober/ProjectEmberLinux.git#tag=v0.4.0
+	sha256sums = SKIP
+
+pkgname = project-ember

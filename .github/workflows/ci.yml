@@ -1,0 +1,31 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - name: System dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libgtk-4-dev libwayland-dev libxkbcommon-dev \
+            libxcb1-dev libxcb-randr0-dev libdbus-1-dev dbus xvfb
+      - name: Format
+        run: cargo fmt --all -- --check
+      - name: Tests
+        run: cargo test --workspace --locked -- --test-threads=1
+      - name: X11 readback (Xvfb)
+        run: xvfb-run -a cargo test -p ember-platform --test x11_gamma --locked -- --nocapture
+      - name: Release build
+        run: cargo build --release --locked --workspace
+      - name: Simulator
+        run: cargo run -q -p ember-daemon --bin emberd -- --simulate all

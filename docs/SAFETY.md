@@ -42,7 +42,7 @@ Schema 2 JSON:
 ```json
 {
   "schemaVersion": 2,
-  "appVersion": "0.4.0 (build 5, Omarchy)",
+  "appVersion": "0.4.1 (build 6, Omarchy)",
   "createdAt": 1794168000,
   "displays": [
     {

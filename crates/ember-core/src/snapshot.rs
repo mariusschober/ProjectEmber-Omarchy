@@ -302,6 +302,6 @@ mod tests {
     #[test]
     fn version_footer_is_linux_branded() {
         let snapshot = Snapshot::empty();
-        assert_eq!(snapshot.footer_version(), "v0.4.0 · Omarchy");
+        assert_eq!(snapshot.footer_version(), "v0.4.1 · Omarchy");
     }
 }

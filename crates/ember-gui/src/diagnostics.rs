@@ -66,7 +66,7 @@ pub fn open(
     text_view.add_css_class("ember-diagnostics");
     let buffer = text_view.buffer();
     let initial = if demo {
-        "Project Ember diagnostics · 0.4.0 (build 5, Omarchy)\n\n\
+        "Project Ember diagnostics · 0.4.1 (build 6, Omarchy)\n\n\
          [INFO] Simulated backend active\n\
          [INFO] Demo data — no real display was changed\n\
          [INFO] Display identity tags are salted; no serial numbers are exported"

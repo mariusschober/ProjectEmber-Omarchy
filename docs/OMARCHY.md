@@ -38,9 +38,26 @@ or:
 ./scripts/install.sh --omarchy
 ```
 
-The tray icon appears in the Omarchy bar. If your bar hides SNI items, enable
-the Ember entry in the bar settings; Ember itself does not modify the bar
-config.
+The tray icon appears in the Omarchy bar. New SNI items are placed in the tray
+drawer by default, so `--omarchy` pins Ember directly onto the bar with the
+official `omarchy bar set omarchy.tray pinned ...` command. If you installed
+before 0.4.1, run:
+
+```bash
+./scripts/omarchy-pin-tray.sh
+```
+
+Then confirm:
+
+```bash
+omarchy bar get omarchy.tray pinned
+# ["project-ember"]
+journalctl --user -u project-ember -b | grep -i tray
+# StatusNotifierWatcher online; Ember is in the Omarchy tray
+```
+
+If the icon is still missing, make sure the `omarchy.tray` widget is enabled in
+the bar layout. Ember does not rewrite your bar config beyond the pin.
 
 ### Menu extension
 
@@ -102,7 +119,7 @@ Run these on the actual machine, in a graphical session. Record `uname -a`,
       single panel device
 - [ ] `emberctl probe --json` reports backend `wayland`, protocol available and
       one built-in display (no writes); inspect `/sys/class/backlight` separately
-- [ ] `ember --version` → `0.4.0 (build 5, Omarchy) · GTK 4`
+- [ ] `ember --version` → `0.4.1 (build 6, Omarchy) · GTK 4`
 
 ### 2. Install
 

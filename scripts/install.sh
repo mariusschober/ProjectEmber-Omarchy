@@ -170,6 +170,16 @@ if [[ "$OMARCHY" == "1" ]]; then
   install_file 644 "$ROOT/packaging/omarchy/hypr-bindings.lua" \
     "$DOC_DIR/hypr-bindings.lua"
   step "Optional keybindings: $DOC_DIR/hypr-bindings.lua"
+
+  # New SNI items land in Omarchy's tray drawer. Pin Ember to the bar so it is
+  # visible immediately, like the macOS menu-bar icon.
+  if [[ -x "$ROOT/scripts/omarchy-pin-tray.sh" ]]; then
+    if "$ROOT/scripts/omarchy-pin-tray.sh"; then
+      step "Tray: pinned to the Omarchy bar"
+    else
+      step "Tray: pin Ember from the tray chevron menu (right-click)."
+    fi
+  fi
 fi
 
 if [[ "$DRY_RUN" == "0" && -n "$TARGET_UID" ]]; then
@@ -205,4 +215,7 @@ Next:
 
 Omarchy: bind "ember" to a key in ~/.config/hypr/bindings.lua, e.g.
   o.bind("SUPER + SHIFT + E", "Ember controls", "ember")
+
+If Ember was already running, restart it so the new binaries and tray code load:
+  emberctl quit && ember
 NEXT

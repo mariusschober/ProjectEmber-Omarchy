@@ -74,7 +74,7 @@ makepkg -si
 systemctl --user enable --now project-ember.service
 ```
 
-The PKGBUILD builds the `v0.4.0` tag from this repository and installs
+The PKGBUILD builds the `v0.4.1` tag from this repository and installs
 `/usr/bin/{emberd,emberctl,ember}`, the desktop entry, icons, systemd user unit
 and D-Bus activation file. `makepkg -s` installs the build dependencies.
 
@@ -94,7 +94,7 @@ unsupported rather than silently ignored.
 ```bash
 emberctl probe --json     # read-only hardware/session probe
 emberctl status           # daemon state, backend and verification level
-ember --version           # 0.4.0 (build 5, Omarchy) · GTK 4.x
+ember --version           # 0.4.1 (build 6, Omarchy) · GTK 4.x
 ```
 
 ### Uninstall
@@ -214,6 +214,8 @@ scripts and troubleshooting.
 ## Omarchy integration
 
 - **Tray:** native SNI icon in the Quickshell bar, with a rendered ember glyph.
+  `--omarchy` pins Ember directly onto the bar instead of leaving it in the tray
+  drawer. If it is still in the drawer, run `./scripts/omarchy-pin-tray.sh`.
 - **Panel:** `gtk4-layer-shell` overlay anchored under the bar; falls back to a
   normal window when the library or compositor support is absent.
 - **Menu:** `./scripts/install.sh --omarchy` adds the Ember rows to
@@ -277,6 +279,7 @@ targets; the release CI builds x86_64.
 | Mock Wayland compositor | Exact u16 ramp bytes, `failed`, restore-on-destroy |
 | X11 XRandR | Real readback and idempotent restore (Xvfb) |
 | D-Bus integration | Private `dbus-daemon`, invalid inputs rejected |
+| Tray lifecycle | Registers when the watcher starts late and after a shell restart |
 | Simulator | 7/7 scenarios |
 | Red team | 7/7 adversarial tests |
 | GUI | Active/off/degraded/offline screenshots rendered from the app |
@@ -286,6 +289,34 @@ compositor: it validates the exact interleaved `uint16` ramp written through
 `zwlr_gamma_control_v1`, not just internal state. See
 [`docs/TEST_PLAN.md`](docs/TEST_PLAN.md) and
 [`docs/RED_TEAM_REPORT.md`](docs/RED_TEAM_REPORT.md).
+
+### Tray icon not on the bar?
+
+Omarchy deliberately puts new SNI items in the tray **drawer** behind the small
+chevron. The Omarchy installer pins Ember for you; for an existing install run:
+
+```bash
+./scripts/omarchy-pin-tray.sh
+```
+
+If you are updating an existing install, restart the daemon so the new tray
+code is loaded:
+
+```bash
+emberctl quit
+ember
+```
+
+If the icon is missing entirely, check that the tray widget is on the bar and
+inspect the daemon log:
+
+```bash
+omarchy bar get omarchy.tray pinned
+journalctl --user -u project-ember -b | grep -i tray
+```
+
+Since 0.4.1 the daemon waits for `org.kde.StatusNotifierWatcher` at login and
+re-registers after an `omarchy-shell` restart.
 
 > [!WARNING]
 > Real Omarchy hardware acceptance is still pending. The mock protocol test,
@@ -312,7 +343,7 @@ compositor: it validates the exact interleaved `uint16` ramp written through
 
 | | |
 |---|---|
-| Version | **0.4.0** (build 5, Omarchy edition) |
+| Version | **0.4.1** (build 6, Omarchy edition) |
 | License | **MIT** |
 | Platforms | Omarchy, Arch Linux, Sway/wlroots, X11 |
 | Hardware acceptance | **Pending** — checklist in `docs/OMARCHY.md` |

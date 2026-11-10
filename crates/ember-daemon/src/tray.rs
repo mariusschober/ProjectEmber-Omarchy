@@ -4,7 +4,7 @@ use ember_core::{EmberPreset, Snapshot, TrayPrimaryAction};
 use ksni::blocking::{Handle as TrayHandle, TrayMethods};
 use ksni::menu::{CheckmarkItem, StandardItem};
 use ksni::{Icon, MenuItem, ToolTip, Tray};
-use log::warn;
+use log::{info, warn};
 
 use crate::coordinator::DaemonCommand;
 
@@ -18,6 +18,18 @@ pub struct EmberTray {
 
 impl Tray for EmberTray {
     const MENU_ON_ACTIVATE: bool = false;
+
+    fn watcher_offline(&self, reason: ksni::OfflineReason) -> bool {
+        warn!(
+            "StatusNotifierWatcher is not available yet ({reason:?}); \
+             waiting for the Omarchy bar and will register Ember when it appears"
+        );
+        true
+    }
+
+    fn watcher_online(&self) {
+        info!("StatusNotifierWatcher online; Ember is in the Omarchy tray");
+    }
 
     fn id(&self) -> String {
         "project-ember".into()
@@ -146,6 +158,12 @@ fn preset_item(
 
 /// Spawns the tray. Failure is non-fatal: Ember keeps running headlessly and
 /// the GUI/CLI still work.
+///
+/// `assume_sni_available(true)` is important on Omarchy: `emberd` can start
+/// from XDG autostart before `omarchy-shell` has exported its
+/// StatusNotifierWatcher. Without this, ksni would return ServiceUnknown once
+/// and Ember would never get a menu-bar icon. With it, the item waits for the
+/// watcher and re-registers when the shell starts or restarts.
 pub fn spawn(
     command_tx: Sender<DaemonCommand>,
     snapshot: Snapshot,
@@ -154,8 +172,11 @@ pub fn spawn(
         snapshot,
         command_tx,
     };
-    match tray.spawn() {
-        Ok(handle) => Some(handle),
+    match tray.assume_sni_available(true).spawn() {
+        Ok(handle) => {
+            info!("StatusNotifierItem tray started; waiting for the session tray host");
+            Some(handle)
+        }
         Err(error) => {
             warn!("System tray unavailable: {error}");
             None

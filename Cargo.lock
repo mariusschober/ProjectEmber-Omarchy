@@ -538,7 +538,7 @@ checksum = "75b325c5dbd37f80359721ad39aca5a29fb04c89279657cffdda8736d0c0b9d2"
 
 [[package]]
 name = "ember-cli"
-version = "0.4.0"
+version = "0.4.1"
 dependencies = [
  "anyhow",
  "chrono",
@@ -555,7 +555,7 @@ dependencies = [
 
 [[package]]
 name = "ember-core"
-version = "0.4.0"
+version = "0.4.1"
 dependencies = [
  "chrono",
  "chrono-tz",
@@ -571,7 +571,7 @@ dependencies = [
 
 [[package]]
 name = "ember-daemon"
-version = "0.4.0"
+version = "0.4.1"
 dependencies = [
  "anyhow",
  "chrono",
@@ -593,7 +593,7 @@ dependencies = [
 
 [[package]]
 name = "ember-gui"
-version = "0.4.0"
+version = "0.4.1"
 dependencies = [
  "chrono",
  "clap",
@@ -610,7 +610,7 @@ dependencies = [
 
 [[package]]
 name = "ember-platform"
-version = "0.4.0"
+version = "0.4.1"
 dependencies = [
  "chrono",
  "ember-core",

@@ -1,6 +1,20 @@
 # Changelog
 
+## 0.4.1 — Omarchy tray fix (2026-11-10)
+
+### Fixed
+
+- **The tray now survives login ordering.** `emberd` can start from XDG
+  autostart before `omarchy-shell` exports `org.kde.StatusNotifierWatcher`.
+  The tray waits for the watcher and re-registers after an Omarchy shell
+  restart instead of giving up once.
+- **The tray item is pinned to the Omarchy bar** by `--omarchy`, rather than
+  being left in the tray drawer. A standalone
+  `scripts/omarchy-pin-tray.sh` fixes existing installs.
+- Added a regression test that starts the watcher late and restarts it.
+
 ## 0.4.0 — Omarchy edition (2026-11-10)
+
 
 First native Linux/Omarchy release. Ported from macOS Project Ember 0.4.0
 (build 5) with the same color science and safety model. MIT licensed.

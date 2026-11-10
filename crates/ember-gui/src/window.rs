@@ -118,7 +118,7 @@ impl Panel {
         let spacer = gtk::Box::new(gtk::Orientation::Horizontal, 0);
         spacer.set_hexpand(true);
         header.append(&spacer);
-        let version = gtk::Label::new(Some("v0.4.0"));
+        let version = gtk::Label::new(Some(&format!("v{}", ember_core::AppVersion::MARKETING)));
         version.add_css_class("ember-version");
         version.set_valign(gtk::Align::Center);
         header.append(&version);

@@ -13,6 +13,7 @@ Rust 1.99.1), GTK 4.14.5 from a local sysroot, Xvfb 21.1.
 | X11 XRandR readback (Xvfb) | `DISPLAY=:99 cargo test -p ember-platform --test x11_gamma` | 1 passed |
 | Daemon simulation | `cargo run -p ember-daemon -- --simulate all` | 7 scenarios passed |
 | D-Bus integration | `cargo test -p ember-daemon --test dbus_integration` | 1 passed |
+| Tray lifecycle | `cargo test -p ember-daemon --test tray_registration` | 1 passed |
 | Red team | `cargo test -p ember-daemon --test red_team` | 7 passed |
 | GUI render | `ember --screenshot … --demo --state {active,off,degraded}` | 3 images, visually inspected |
 | Live GUI + daemon + CLI | private `dbus-run-session`, simulated backend | screenshot matched daemon state |

@@ -1,9 +1,9 @@
 //! Version truth for the Linux port.
 
 /// Marketing version shared with the macOS 0.4.0 feature baseline.
-pub const MARKETING: &str = "0.4.0";
+pub const MARKETING: &str = "0.4.1";
 /// Build number within the 0.4.x line. Linux-specific releases increment it.
-pub const BUILD: u32 = 5;
+pub const BUILD: u32 = 6;
 /// Highest recovery-journal schema this build can understand.
 pub const MAX_SUPPORTED_SCHEMA: u32 = 2;
 /// Current recovery-journal schema written by this build.
@@ -19,7 +19,7 @@ impl AppVersion {
     pub const MAX_SUPPORTED_SCHEMA: u32 = MAX_SUPPORTED_SCHEMA;
     pub const EDITION: &'static str = EDITION;
 
-    /// Full version, e.g. `0.4.0 (build 5, Omarchy)`.
+    /// Full version, e.g. `0.4.1 (build 6, Omarchy)`.
     pub fn full() -> String {
         format!("{MARKETING} (build {BUILD}, {EDITION})")
     }

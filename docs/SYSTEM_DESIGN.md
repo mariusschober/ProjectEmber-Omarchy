@@ -1,8 +1,8 @@
-# System design (Linux / Omarchy 0.4.0)
+# System design (Linux / Omarchy 0.4.1)
 
 ## Version truth
 
-`ember_core::AppVersion` (marketing 0.4.0, build 5, journal schema 2) is the
+`ember_core::AppVersion` (marketing 0.4.1, build 6, journal schema 2) is the
 single source of truth. Binaries, package metadata, the footer and diagnostics
 derive from it. The Linux edition is labelled **Omarchy**.
 

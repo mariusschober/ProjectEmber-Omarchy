@@ -1,4 +1,4 @@
-# Red-team report — Project Ember Linux 0.4.0
+# Red-team report — Project Ember Linux 0.4.1
 
 Date: 2026-11-08/09
 Scope: `ember-core`, `ember-platform`, `ember-daemon`, `ember-cli`,
@@ -185,6 +185,10 @@ or crash upload.
    directory already existed**, which could loosen a hardened `~/.config`.
    Existing directories are now left untouched; only a newly created autostart
    directory is 0755. Added a regression test.
+10. **The tray gave up permanently if Omarchy's StatusNotifierWatcher started
+    after `emberd`.** The tray now waits for the watcher and re-registers after
+    a shell restart; `scripts/tray_registration.rs` covers both cases, and the
+    Omarchy installer pins the item to the bar.
 
 ## Residual risk register
 

@@ -1,7 +1,7 @@
 # Maintainer: Marius Schober <https://mariusschober.com/>
 # Builds the signed release tag from GitHub. Requires base-devel and Rust.
 pkgname=project-ember
-pkgver=0.4.0
+pkgver=0.4.1
 pkgrel=1
 pkgdesc="Reversible warmth and software dimming for every display (Omarchy/Linux)"
 arch=('x86_64' 'aarch64')
